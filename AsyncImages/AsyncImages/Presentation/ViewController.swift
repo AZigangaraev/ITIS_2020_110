@@ -22,10 +22,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ImageCell else {
             fatalError("Can't dequeue cell")
         }
+        cell.loadImage = imageLoader.loadImage
         let image = Image(name: "\(indexPath.row % 7 + 1)")
-        cell.imageNameLabel.text = image.name
-        imageLoader.loadImage(image: image) { image in
-            cell.customImageView.image = image
+        if Int.random(in: 1...2) == 1 {
+            cell.set(image: image)
         }
         return cell
     }
