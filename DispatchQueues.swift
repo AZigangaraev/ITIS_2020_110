@@ -83,3 +83,27 @@ myDictionary.set(value: 1, for: "123")
      imageView.image = image
  }
 */
+
+
+
+// MARK: - Cancel work item
+let consecutiveQueue = DispatchQueue(label: "1235")
+(1...5).map { number in
+    consecutiveQueue.async {
+        sleep(1)
+        print(number)
+    }
+}
+let workItem = DispatchWorkItem {
+    sleep(1)
+    print("Work item completed it's job")
+}
+consecutiveQueue.async(execute: workItem)
+
+workItem.cancel()
+
+// MARK: - Global queue
+
+let globalQueue = DispatchQueue.global(qos: .background)
+globalQueue.async {
+}
